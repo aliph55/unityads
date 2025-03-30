@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Ads Rewarded</title>
+    <script src="https://webview-sdk.unityads.unity3d.com/unityads.js"></script>
+</head>
+<body>
+    <button onclick="showAd()">Reklamı İzle ve Ödül Kazan</button>
+
+    <script>
+        const gameId = "5824306"; // Unity Ads Game ID (Android için)
+        const adUnitId = "Rewarded_Android"; // Rewarded Ad ID
+
+        function showAd() {
+            if (unityads && unityads.isReady(adUnitId)) {
+                unityads.show(adUnitId, {
+                    onComplete: () => {
+                        window.ReactNativeWebView.postMessage("ad_complete");
+                    },
+                    onFailed: (error) => {
+                        window.ReactNativeWebView.postMessage("ad_failed:" + error);
+                    }
+                });
+            } else {
+                alert("Reklam şu anda hazır değil.");
+            }
+        }
+    </script>
+</body>
+</html>
